@@ -1,4 +1,3 @@
-// src/gitlab.ts
 import { Gitlab } from "@gitbeaker/node";
 import dotenv from "dotenv";
 import { UserNotFoundError } from "./errors.js";
@@ -18,8 +17,12 @@ export async function getGitLabLanguages(username: string): Promise<{ [key: stri
     const userId = users[0].id;
 
     const projects = await api.Users.projects(userId);
-    const languages: { [key: string]: number } = {};
+    if (projects.length === 0) {
+      console.log("No repositories found for this user.");
+      return {};
+    }
 
+    const languages: { [key: string]: number } = {};
     for (const project of projects) {
       const repoLanguages: { [key: string]: number } = await api.Projects.languages(project.id);
       for (const [language, percentage] of Object.entries(repoLanguages)) {
@@ -31,9 +34,11 @@ export async function getGitLabLanguages(username: string): Promise<{ [key: stri
   } catch (error) {
     if (error instanceof UserNotFoundError) {
       console.error("User not found:", error.message);
+    } else if ((error as any).response && (error as any).response.status === 429) {
+      console.error("Rate limit exceeded. Please try again later.");
     } else {
       console.error("An error occurred in getGitLabLanguages:", (error as Error).message);
     }
-    return {}; // Re-throw the error after logging it
+    return {};
   }
 }

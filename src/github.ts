@@ -1,34 +1,40 @@
-// src/github.ts
 import { Octokit } from "@octokit/rest";
 
+const octokit = new Octokit();
+
 export async function getGitHubLanguages(username: string): Promise<{ [key: string]: number }> {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_API_KEY,
-  });
-
   try {
-    const repos = await octokit.repos.listForUser({ username });
-    const languages: { [key: string]: number } = {};
+    const { data: repos } = await octokit.repos.listForUser({ username });
+    if (repos.length === 0) {
+      console.log("No repositories found for this user.");
+      return {};
+    }
 
-    for (const repo of repos.data) {
-      const repoLanguages = await octokit.repos.listLanguages({
+    const languages: { [key: string]: number } = {};
+    for (const repo of repos) {
+      const { data: repoLanguages } = await octokit.repos.listLanguages({
         owner: username,
         repo: repo.name,
       });
-      for (const [language, bytes] of Object.entries(repoLanguages.data)) {
-        languages[language] = (languages[language] || 0) + bytes;
+
+      for (const [language, bytes] of Object.entries(repoLanguages)) {
+        if (languages[language]) {
+          languages[language] += bytes;
+        } else {
+          languages[language] = bytes;
+        }
       }
     }
 
     return languages;
   } catch (error) {
-    const typedError = error as { status?: number; message: string };
-    if (typedError.status === 404) {
-      console.error(`User ${username} not found.`);
-      return {};
+    if ((error as any).status === 404) {
+      console.error("GitHub user not found.");
+    } else if ((error as any).status === 403) {
+      console.error("Rate limit exceeded. Please try again later.");
     } else {
-      console.error("An error occurred in getGitHubLanguages:", typedError.message);
-      throw typedError;
+      console.error("An error occurred while fetching data from GitHub:", (error as Error).message);
     }
+    return {};
   }
 }
