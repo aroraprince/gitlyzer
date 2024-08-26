@@ -1,7 +1,11 @@
 import { Octokit } from "@octokit/rest";
 import dotenv from "dotenv";
+import { input } from '@inquirer/prompts';
 
 dotenv.config();
+
+
+const githubUsername = await input({ message: 'Enter the github username:' });
 
 async function getGitHubLanguages(username: string) {
   const octokit = new Octokit({
@@ -33,7 +37,7 @@ function calculateTopLanguages(languages: { [key: string]: number }) {
 }
 
 async function main() {
-  const profileUrl = "https://github.com/google";
+  const profileUrl = `https://github.com/${githubUsername}`;;
   const url = new URL(profileUrl);
   const username = url.pathname.split("/")[1];
   let languages: { [key: string]: number } = {};

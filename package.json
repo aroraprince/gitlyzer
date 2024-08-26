@@ -17,5 +17,8 @@
     "inquirer": "^10.1.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7"
   }
 }
