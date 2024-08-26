@@ -33,7 +33,7 @@ function calculateTopLanguages(languages: { [key: string]: number }) {
 }
 
 async function main() {
-  const profileUrl = "https://github.com/airbnb";
+  const profileUrl = "https://github.com/google";
   const url = new URL(profileUrl);
   const username = url.pathname.split("/")[1];
   let languages: { [key: string]: number } = {};
