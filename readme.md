@@ -21,8 +21,8 @@ This project fetches and analyzes the programming languages used in a user's pub
 
 ## Installation Steps
 ### Clone the repository:  
-- git clone <repository-url>
-- cd <repository-directory>
+- git clone git@github.com:aroraprince/gitlyzer.git
+- cd gitlyzer
 
 ### Install dependencies:  
 ```
