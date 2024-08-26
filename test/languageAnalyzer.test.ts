@@ -1,5 +1,5 @@
-import { getGitHubLanguages } from '../src/github';
-import { getGitLabLanguages } from '../src/gitlab';
+import { getGitHubLanguages } from '../src/github.js';
+import { getGitLabLanguages } from '../src/gitlab.js';
 
 describe('Language Analyzer', () => {
   it('should fetch languages from GitHub', async () => {
