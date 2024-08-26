@@ -12,7 +12,9 @@
   "description": "",
   "dependencies": {
     "@gitbeaker/node": "^35.8.1",
+    "@inquirer/prompts": "^5.3.8",
     "@octokit/rest": "^21.0.2",
+    "@types/node": "^22.5.0",
     "dotenv": "^16.4.5",
     "inquirer": "^10.1.8",
     "ts-node": "^10.9.2",
