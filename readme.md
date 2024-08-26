@@ -20,9 +20,11 @@ This project fetches and analyzes the programming languages used in a user's pub
 - GitHub and GitLab API keys
 
 ## Installation Steps
-### Clone the repository:  
+### Clone the repository:
+```
 - git clone git@github.com:aroraprince/gitlyzer.git
 - cd gitlyzer
+```
 
 ### Install dependencies:  
 ```
