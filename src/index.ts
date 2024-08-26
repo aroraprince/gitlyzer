@@ -18,7 +18,7 @@ function calculateTopLanguages(languages: { [key: string]: number }) {
   }));
 }
 
-async function main() {
+export async function main() {
   const url = new URL(profileURL);
   const username = url.pathname.split("/")[1];
   let languages: { [key: string]: number } = {};
