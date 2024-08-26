@@ -1,0 +1,21 @@
+{
+  "name": "github_user_details",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@gitbeaker/node": "^35.8.1",
+    "@octokit/rest": "^21.0.2",
+    "dotenv": "^16.4.5",
+    "inquirer": "^10.1.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
